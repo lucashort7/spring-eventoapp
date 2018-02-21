@@ -3,12 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="style/styleCss.css" />
+
 </head>
 <body>
 
-<div class="alert alert-sucess alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
-
-    <span th:text="${mensagem}"></span>
+<div class="alert alert-sucess alert-dismissible"
+     role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+    <div class="card light-blue lighten-5">
+        <div class="card-content blue-text">
+            <span th:text="${mensagem}"></span>
+        </div>
+    </div>
 </div>
 
 

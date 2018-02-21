@@ -87,7 +87,7 @@ public class EventoController {
     public String detalhesEventosPost(@PathVariable("codigo") long codigo, @Valid Convidado convidado,
                                         BindingResult result, RedirectAttributes redirect){
         if(result.hasErrors()){
-            redirect.addFlashAttribute("mensagem", "Verifique os campos");
+            redirect.addFlashAttribute("mensagem", "Verifique os campos!");
         }else{
             Evento evento = er.findByCodigo(codigo);
             convidado.setEvento(evento);
