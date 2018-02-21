@@ -33,7 +33,7 @@ public class Evento implements Serializable{
     private String horario;
 
 
-    @OneToMany(mappedBy = "evento")
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE)
     private List<Convidado> convidados;
 
     public long getCodigo() {
