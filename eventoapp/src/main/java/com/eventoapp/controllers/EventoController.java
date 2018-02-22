@@ -57,16 +57,24 @@ public class EventoController {
     @RequestMapping(value="/{codigo}", method=RequestMethod.GET)
     public ModelAndView detalhesEventos(@PathVariable("codigo") long codigo){
         Evento evento = er.findOne(codigo);
-        ModelAndView mv = new ModelAndView("evento/detalhesEvento");
-        mv.addObject("evento", evento);
+        ModelAndView mv = null;
 
-        Iterable<Convidado> convidados  = cr.findByEvento(evento);
-        mv.addObject("convidados", convidados);
+        if (evento != null){
+            mv = new ModelAndView("evento/detalhesEvento");
+            mv.addObject("evento", evento);
+
+            Iterable<Convidado> convidados  = cr.findByEvento(evento);
+            mv.addObject("convidados", convidados);
+        }else{
+            mv = new ModelAndView("redirect:/");
+        }
+
+
 
         return mv;
     }
 
-    @RequestMapping("/deletar")
+    @RequestMapping(value = "/deletar")
     public String deletarEvento(long codigo){
         Evento evento = er.findByCodigo(codigo);
         er.delete(evento);
