@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="style/styleCss.css"/>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <body>
 
@@ -47,15 +49,60 @@
                 <td><span th:text="${evento.local}"></span></td>
                 <td><span th:text="${evento.data}"></span></td>
                 <td><span th:text="${evento.horario}"></span></td>
-                <td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}"><i class="material-icons left">delete</i>Deletar</a></td>
+                <td><a class="waves-effect waves-light btn-small"
+                       th:onclick="'deleteComponent(\'' + ${evento.codigo} + '\');'">
+                    <i class="material-icons left">delete</i>Deletar</a></td>
 
             </tr>
         </tbody>
     </table>
 
+
+    <!--
+    <a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('EC#deletarEvento').arg(0, evento.codigo)).build()}">
+    -->
+
+
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+
+
+    <script>
+       function deleteComponent(eventoCodigo){
+           console.log(eventoCodigo);
+           swal({
+               title: "Você tem certeza?",
+               text: "Uma vez realizada, essa ação não poderá ser revertida.",
+               icon: "warning",
+               buttons: {
+                   cancel: {
+                       text: "Não, cancelar.",
+                       value: false,
+                       visible: true,
+                   },
+                   confirm: {
+                       text: "Sim, eu tenho certeza.",
+                       value: true,
+                       visible: true,
+                   },
+               },
+           })
+               .then(function (willDelete) {
+                   if(willDelete) {
+                       $.post("/deletar",
+                           {
+                               codigo:parseInt(eventoCodigo)
+                           },
+                           function(data, status){
+                               if(status === "success"){
+                                   location.reload();
+                               }
+                           });
+                   }
+               });
+       }
+    </script>
 </body>
 
 </html>
